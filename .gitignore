@@ -1,0 +1,45 @@
+# Environment variables
+.env
+.env.local
+*.env
+**/.env
+**/.env.local
+
+# Python (backend)
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.egg-info/
+
+# Node/React (frontend)
+node_modules/
+frontend/node_modules/
+dist/
+dist-ssr/
+build/
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Project docs/planning files (not for GitHub)
+Shadow_Spike_Agile_Project_Plan.md
+Shadow_Spike_Agile_Release_Plan.md
+Shadow_Spike_Agile_Test_Plan.md
+Shadow_Spike_Assumptions_Constraints.md
+Shadow_Spike_Bibliography.md
+Shadow_Spike_Conclusion.md
+Shadow_Spike_Journey_Experience.md
+Shadow_Spike_Project_Report_8W.md
+Shadow_Spike_Project_Report_Final.md
+Shadow_Spike_User_Stories.md
+Interview_Shadow_Spike.txt
+Data_Dictionary.md
+README.md
