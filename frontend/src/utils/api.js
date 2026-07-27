@@ -1,9 +1,21 @@
 import axios from 'axios'
 
+// ─── Base URL ──────────────────────────────────────────────────────────────────
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
+
+// ─── WebSocket URL Helper ──────────────────────────────────────────────────────
+// Converts http(s):// base URL to ws(s):// for WebSocket connections
+// e.g. https://shadow-spike.onrender.com  →  wss://shadow-spike.onrender.com/api/v1/...
+export const getWsUrl = (path) => {
+  const wsBase = BASE_URL
+    .replace(/^https:\/\//, 'wss://')
+    .replace(/^http:\/\//, 'ws://')
+  return `${wsBase}${path}`
+}
+
+// ─── Axios REST Client ─────────────────────────────────────────────────────────
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL
-    ? `${import.meta.env.VITE_API_URL}/api/v1`
-    : 'http://127.0.0.1:8000/api/v1',
+  baseURL: `${BASE_URL}/api/v1`,
   headers: { 'Content-Type': 'application/json' }
 })
 
@@ -23,7 +35,7 @@ api.interceptors.response.use(
       if (refresh) {
         try {
           const { data } = await axios.post(
-            'http://127.0.0.1:8000/api/v1/auth/refresh',
+            `${BASE_URL}/api/v1/auth/refresh`,
             { refresh_token: refresh }
           )
           localStorage.setItem('access_token', data.access_token)

@@ -40,6 +40,10 @@ class Settings(BaseSettings):
     FIRST_ADMIN_EMAIL: str
     FIRST_ADMIN_PASSWORD: str
 
+    # Production backend host (used by proxy to avoid self-loop)
+    # Set to your Render domain e.g. shadow-spike.onrender.com
+    BACKEND_HOST: str = ""
+
     @property
     def allowed_origins_list(self) -> List[str]:
         return [o.strip() for o in self.ALLOWED_ORIGINS.split(",")]

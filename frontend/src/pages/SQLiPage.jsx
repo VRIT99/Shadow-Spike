@@ -4,6 +4,7 @@ import api from '../utils/api'
 import toast from 'react-hot-toast'
 import useAuthStore from '../store/authStore'
 import { sanitizeUrl } from '../utils/sanitize'
+import { getWsUrl } from '../utils/api'
 
 const SEVERITY_COLORS = { CRITICAL: '#ff0040', HIGH: '#ff3366', MEDIUM: '#ffb347', LOW: '#00ff88' }
 
@@ -63,7 +64,7 @@ export default function SQLiPage() {
     const token = localStorage.getItem('access_token')
     if (!token) { toast.error('Unauthorized'); setScanning(false); return }
 
-    const wsUrl = 'ws://127.0.0.1:8000/api/v1/sqli/ws/scan'
+    const wsUrl = getWsUrl('/api/v1/sqli/ws/scan')
     const ws = new WebSocket(wsUrl)
     setActiveWs(ws)
 

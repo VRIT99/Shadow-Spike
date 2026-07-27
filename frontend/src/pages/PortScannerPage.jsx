@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import api from '../utils/api'
 import useAuthStore from '../store/authStore'
 import { sanitizeDomain, sanitizePorts } from '../utils/sanitize'
+import { getWsUrl } from '../utils/api'
 
 const SCAN_TYPES = [
   { id: 'quick', label: 'QUICK SCAN', desc: 'Top 100 ports', time: '~10s' },
@@ -90,7 +91,7 @@ export default function PortScannerPage() {
     };
     setCurrentResult(liveResult);
 
-    const wsUrl = 'ws://127.0.0.1:8000/api/v1/scanner/ws/scan'
+    const wsUrl = getWsUrl('/api/v1/scanner/ws/scan')
     const ws = new WebSocket(wsUrl);
     setActiveWs(ws)
 

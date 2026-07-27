@@ -7,6 +7,8 @@ import ssl
 from datetime import datetime
 from typing import Optional, Dict, Any, List, Callable
 from app.services.ca_service import ca_service
+from app.config import settings
+
 
 logger = logging.getLogger("shadow_spike.proxy")
 
@@ -85,7 +87,11 @@ class ProxyServer:
             # Identify if this is Shadow Spike's own backend traffic
             # URL might be full or relative
             host_header = headers.get('Host', '')
-            is_own_backend = ('localhost:8000' in host_header) or ('127.0.0.1:8000' in host_header)
+            is_own_backend = (
+                'localhost:8000' in host_header
+                or '127.0.0.1:8000' in host_header
+                or (settings.BACKEND_HOST and settings.BACKEND_HOST in host_header)
+            )
 
             if is_own_backend:
                 print(f"[PROXY] Bypassing own backend: {url}")
@@ -233,7 +239,11 @@ class ProxyServer:
 
             # Identify if this is Shadow Spike's own backend traffic
             host_header = headers.get('Host', '')
-            is_own_backend = ('localhost:8000' in host_header) or ('127.0.0.1:8000' in host_header)
+            is_own_backend = (
+                'localhost:8000' in host_header
+                or '127.0.0.1:8000' in host_header
+                or (settings.BACKEND_HOST and settings.BACKEND_HOST in host_header)
+            )
 
             if is_own_backend:
                 print(f"[PROXY] Bypassing own backend: {url}")

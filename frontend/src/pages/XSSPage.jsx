@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import api from '../utils/api'
 import useAuthStore from '../store/authStore'
 import { sanitizeUrl } from '../utils/sanitize'
+import { getWsUrl } from '../utils/api'
 
 const SEVERITY_COLORS = {
   CRITICAL: '#ff0040',
@@ -105,7 +106,7 @@ export default function XSSPage() {
     const token = localStorage.getItem('access_token')
     if (!token) { toast.error('Unauthorized'); setScanning(false); return }
 
-    const wsUrl = 'ws://127.0.0.1:8000/api/v1/xss/ws/scan'
+    const wsUrl = getWsUrl('/api/v1/xss/ws/scan')
     const ws = new WebSocket(wsUrl)
     setActiveWs(ws)
 

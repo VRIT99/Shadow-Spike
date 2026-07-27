@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import api from '../utils/api'
 import useAuthStore from '../store/authStore'
 import { sanitizeDomain } from '../utils/sanitize'
+import { getWsUrl } from '../utils/api'
 
 const SCAN_TYPES = [
   { id: 'quick', label: 'QUICK', desc: '~50 common subdomains', time: '~15s' },
@@ -118,7 +119,7 @@ export default function SubdomainPage() {
     };
     setCurrentResult(liveResult);
 
-    const wsUrl = 'ws://127.0.0.1:8000/api/v1/subdomain/ws/scan'
+    const wsUrl = getWsUrl('/api/v1/subdomain/ws/scan')
     const ws = new WebSocket(wsUrl);
     setActiveWs(ws);
 

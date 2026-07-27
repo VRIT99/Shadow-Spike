@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import api from '../utils/api'
 import useAuthStore from '../store/authStore'
 import { sanitizeMultiline } from '../utils/sanitize'
+import { getWsUrl } from '../utils/api'
 
 export default function ProxyPage() {
   const navigate = useNavigate()
@@ -67,7 +68,7 @@ export default function ProxyPage() {
 
   const connectWs = () => {
     const token = localStorage.getItem('access_token')
-    const socket = new WebSocket('ws://127.0.0.1:8000/api/v1/proxy/ws/traffic')
+    const socket = new WebSocket(getWsUrl('/api/v1/proxy/ws/traffic'))
     
     socket.onopen = () => {
       socket.send(JSON.stringify({ token }))
